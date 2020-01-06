@@ -32,21 +32,31 @@ public class ScanMaltaStateRels {
     public void setLoggedIn() {
         isLoggedIn = true;
         isLoggedOut = false;
-        isSearching = true;
-        isAddingToCart = true;
-        isRemovingFromCart = true;
+        isSearching = false;
+        isAddingToCart = false;
+        isRemovingFromCart = false;
         isCheckingOut = false;
 
         pageObject.getWebPage();
         pageObject.login(email, password);
+    }
+    public void setLoggedOut() {
+        isLoggedIn = false;
+        isLoggedOut = true;
+        isSearching = false;
+        isAddingToCart = false;
+        isRemovingFromCart = false;
+        isCheckingOut = false;
+
+        pageObject.logout();
     }
 
     public void setSearching() {
         isLoggedIn = true;
         isLoggedOut = false;
         isSearching = true;
-        isAddingToCart = true;
-        isRemovingFromCart = true;
+        isAddingToCart = false;
+        isRemovingFromCart = false;
         isCheckingOut = false;
 
         pageObject.search(productItem);
@@ -55,7 +65,7 @@ public class ScanMaltaStateRels {
     public void setAddingToCart() {
         isLoggedIn = true;
         isLoggedOut = false;
-        isSearching = true;
+        isSearching = false;
         isAddingToCart = true;
         isRemovingFromCart = false;
         isCheckingOut = false;
@@ -64,14 +74,24 @@ public class ScanMaltaStateRels {
         pageObject.buyProduct();
     }
 
-    public void removingFromCart() {
+    public void setRemovingFromCart() {
         isLoggedIn = true;
         isLoggedOut = false;
-        isSearching = true;
-        isAddingToCart = true;
+        isSearching = false;
+        isAddingToCart = false;
         isRemovingFromCart = true;
         isCheckingOut = false;
 
         pageObject.removeFirstProductInCart();
+    }
+    public void setCheckedOut() {
+        isLoggedIn = true;
+        isLoggedOut = false;
+        isSearching = false;
+        isAddingToCart = false;
+        isRemovingFromCart = true;
+        isCheckingOut = true;
+
+        pageObject.checkout();
     }
 }

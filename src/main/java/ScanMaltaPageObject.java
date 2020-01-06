@@ -115,4 +115,11 @@ public class ScanMaltaPageObject {
         product1.findElement(By.className("btn-remove")).click();
         sleep(1);
     }
+
+    public void logout() {
+        browser.get("https://www.scanmalta.com/newstore/customer/account/logoutSuccess/");
+    }
+    public void checkout() {
+        browser.get("    https://www.scanmalta.com/newstore/checkout/");
+    }
 }
