@@ -11,16 +11,11 @@ public class ScanMaltaStateRels {
 
     public ScanMaltaStateRels(WebDriver browser) {
         this.browser = browser;
-        browser.get("https://www.scanmalta.com/newstore/");
         pageObject = new ScanMaltaPageObject(browser);
     }
 
-    boolean isLoggedIn = false,
-            isLoggedOut = true,
-            isSearching = false,
-            isAddingToCart = false,
-            isRemovingFromCart = false,
-            isCheckingOut = false;
+    private boolean isLoggedIn = false, isLoggedOut = true, isSearching = false, isAddingToCart = false,
+            isRemovingFromCart = false, isCheckingOut = false;
 
     boolean isLoggedIn(){ return isLoggedIn; }
     boolean isLoggedOut(){ return isLoggedOut; }
@@ -30,68 +25,80 @@ public class ScanMaltaStateRels {
     boolean isCheckingOut(){ return isCheckingOut; }
 
     public void setLoggedIn() {
-        isLoggedIn = true;
-        isLoggedOut = false;
-        isSearching = false;
-        isAddingToCart = false;
-        isRemovingFromCart = false;
-        isCheckingOut = false;
+        if(!isLoggedIn && isLoggedOut && !isSearching && !isAddingToCart && !isRemovingFromCart && !isCheckingOut){
+            isLoggedIn = true;
+            isLoggedOut = false;
+            isSearching = false;
+            isAddingToCart = false;
+            isRemovingFromCart = false;
+            isCheckingOut = false;
 
-        pageObject.getWebPage();
-        pageObject.login(email, password);
+            pageObject.getWebPage();
+            pageObject.login(email, password);
+        }
     }
     public void setLoggedOut() {
-        isLoggedIn = false;
-        isLoggedOut = true;
-        isSearching = false;
-        isAddingToCart = false;
-        isRemovingFromCart = false;
-        isCheckingOut = false;
+        if(isLoggedIn && !isCheckingOut) {
+            isLoggedIn = false;
+            isLoggedOut = true;
+            isSearching = false;
+            isAddingToCart = false;
+            isRemovingFromCart = false;
+            isCheckingOut = false;
 
-        pageObject.logout();
+            pageObject.logout();
+        }
     }
 
     public void setSearching() {
-        isLoggedIn = true;
-        isLoggedOut = false;
-        isSearching = true;
-        isAddingToCart = false;
-        isRemovingFromCart = false;
-        isCheckingOut = false;
+        if(!isLoggedOut && !isCheckingOut) {
+            isLoggedIn = true;
+            isLoggedOut = false;
+            isSearching = true;
+            isAddingToCart = false;
+            isRemovingFromCart = false;
+            isCheckingOut = false;
 
-        pageObject.search(productItem);
+            pageObject.search(productItem);
+        }
     }
 
     public void setAddingToCart() {
-        isLoggedIn = true;
-        isLoggedOut = false;
-        isSearching = false;
-        isAddingToCart = true;
-        isRemovingFromCart = false;
-        isCheckingOut = false;
+        if(isSearching && isLoggedIn && !isLoggedOut && !isCheckingOut) {
+            isLoggedIn = true;
+            isLoggedOut = false;
+            isSearching = false;
+            isAddingToCart = true;
+            isRemovingFromCart = false;
+            isCheckingOut = false;
 
-        pageObject.selectFirstProduct();
-        pageObject.buyProduct();
+            pageObject.selectFirstProduct();
+            pageObject.buyProduct();
+        }
     }
 
     public void setRemovingFromCart() {
-        isLoggedIn = true;
-        isLoggedOut = false;
-        isSearching = false;
-        isAddingToCart = false;
-        isRemovingFromCart = true;
-        isCheckingOut = false;
+        if(isLoggedIn && !isLoggedOut && !isCheckingOut) {
+            isLoggedIn = true;
+            isLoggedOut = false;
+            isSearching = false;
+            isAddingToCart = false;
+            isRemovingFromCart = true;
+            isCheckingOut = false;
 
-        pageObject.removeFirstProductInCart();
+            pageObject.removeFirstProductInCart();
+        }
     }
     public void setCheckedOut() {
-        isLoggedIn = true;
-        isLoggedOut = false;
-        isSearching = false;
-        isAddingToCart = false;
-        isRemovingFromCart = true;
-        isCheckingOut = true;
+        if(!isLoggedOut && isLoggedIn  && !isCheckingOut && !isSearching) {
+            isLoggedIn = true;
+            isLoggedOut = false;
+            isSearching = false;
+            isAddingToCart = false;
+            isRemovingFromCart = true;
+            isCheckingOut = true;
 
-        pageObject.checkout();
+            pageObject.checkout();
+        }
     }
 }

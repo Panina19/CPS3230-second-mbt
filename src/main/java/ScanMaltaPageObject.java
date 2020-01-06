@@ -118,8 +118,10 @@ public class ScanMaltaPageObject {
 
     public void logout() {
         browser.get("https://www.scanmalta.com/newstore/customer/account/logoutSuccess/");
+        sleep(1);
     }
     public void checkout() {
         browser.get("    https://www.scanmalta.com/newstore/checkout/");
+        sleep(1);
     }
 }
