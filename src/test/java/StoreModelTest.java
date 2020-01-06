@@ -25,8 +25,7 @@ public class StoreModelTest implements FsmModel {
     private ScanMaltaStateRels sut;
     private WebDriver browser;
 
-    StoreModelTest(WebDriver browser) {
-        this.browser = browser;
+    public StoreModelTest() {
         sut = new ScanMaltaStateRels(browser);
     }
     public StoreStates getState() {
@@ -58,7 +57,7 @@ public class StoreModelTest implements FsmModel {
     @After
     public void teardown() { browser.quit(); }
 
-    public boolean loggingInGuard() {
+    public boolean loggedInGuard() {
         return (!getState().equals(StoreStates.LOGGED_IN) && !getState().equals(StoreStates.CHECKING_OUT) && isLoggedOut);
     }
     public @Action
@@ -75,11 +74,11 @@ public class StoreModelTest implements FsmModel {
         assertEquals("", isLoggedIn, sut.isLoggedIn());
     }
 
-    public boolean loggingOutGuard() {
+    public boolean loggedOutGuard() {
         return (!getState().equals(StoreStates.LOGGED_OUT)) && !(getState().equals(StoreStates.CHECKING_OUT));
     }
     public @Action
-    void loggingOut() {
+    void loggedOut() {
         sut.setLoggedOut();
         isLoggedIn = false;
         isLoggedOut = true;
@@ -161,7 +160,7 @@ public class StoreModelTest implements FsmModel {
 
     @Test
     public void ScanStoreSystemModelRunner () throws FileNotFoundException {
-        final Tester tester = new GreedyTester(new StoreModelTest(browser));
+        final Tester tester = new GreedyTester(new StoreModelTest());
         tester.setRandom(new Random());
         final GraphListener graphListener = tester.buildGraph();
         tester.addListener(new StopOnFailureListener());
